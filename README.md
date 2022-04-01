@@ -1,23 +1,7 @@
-# 计划
-
-[TOC]
-
+# samlask-server
 ---
-## 参数校验
+## Installation
 
----
-## 代码命名
-
----
-## 代码解耦
-
-
----
-## jwt
-
----
-## 错误处理
-
-
----
-## https
+```node
+npm i
+```
