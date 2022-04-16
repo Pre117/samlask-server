@@ -15,10 +15,7 @@ const storage = multer.diskStorage({
     // 设置文件存储位置
     destination: function (req, file, cb) {
         let dir = './public/uploads/'
-
         const reg = /-\d{1,}$/
-        // console.log(req.body)
-
         if (reg.test(file.originalname)) {
             dir += file.originalname.replace(reg, '-dir')
         }
@@ -35,8 +32,6 @@ const storage = multer.diskStorage({
 
     // 设置存储的文件名称
     filename: function (req, file, cb) {
-        // const hash = req.body.hash
-        // console.log(req.body)
         const fileName = file.fieldname + '-' + Date.now() + '-' + file.originalname
         cb(null, fileName)
     },
@@ -47,8 +42,6 @@ export const uploadMulter = multer({ storage: storage })
 // 上传多个文件
 export const uploadMultipleFiles = async (ctx) => {
     const pathList = []
-    // console.log(ctx.req.body)
-    // console.log(ctx.req.files)
 
     ctx.req.files.map((file) => {
         const path = ctx.origin + '' + file.path.replace('public', '')
