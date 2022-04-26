@@ -1,6 +1,9 @@
 import Router from 'koa-router'
 import {
-    addArticle, delArticle, findAllArticle,
+    addArticle,
+    delArticle,
+    delUserArticle,
+    findAllArticle,
     findArticleById,
     findArticleUnderUser,
     findPartOfArticle,
@@ -25,5 +28,7 @@ articleRouter.get('/find/userId=:userId', findArticleUnderUser)
 articleRouter.post('/update', updateArticle)
 // 删除文章
 articleRouter.post('/del', delArticle)
+// 删除用户下的所有文章
+articleRouter.post('/delByUserId', delUserArticle)
 
 export default articleRouter

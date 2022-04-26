@@ -3,14 +3,16 @@ import mongoose from 'mongoose'
 const articleSchema = new mongoose.Schema({
     userId: String,
     username: String,
+    classification: Number,
+    tags: [],
+    abstract: String,
     title: String,
     content: String,
     date: String,
     views: Number,
     likes: [],
     commentIds: [],
-    collectors: [],
-    tags: []
+    collectors: []
 })
 
 const Article = mongoose.model('article', articleSchema)

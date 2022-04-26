@@ -38,6 +38,20 @@ export const del = async (ctx, model, id) => {
     }
 }
 
+export const delByKey = async (ctx, model, { key, value }) => {
+    try {
+        const obj = {}
+        obj[key] = value
+        return await model.findOneAndDelete(obj)
+    } catch (error) {
+        ctx.body = {
+            code: "500",
+            message: '删除失败'
+        }
+        console.error(error)
+    }
+}
+
 /**
  * 根据id修改数据
  * @param {*} ctx 上下文对象

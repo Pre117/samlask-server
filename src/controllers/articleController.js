@@ -1,15 +1,18 @@
 import Article from '../model/article.js'
 import { searchParams } from '../utils/common.js'
-import { add, del, find, findByKey, findOne, update } from './crudUtil.js'
+import { add, del, delByKey, find, findByKey, findOne, update } from './crudUtil.js'
 
 // 添加文章
 export const addArticle = async (ctx) => {
     const { articleInfo } = ctx.request.body
 
+    console.log(articleInfo)
+
     const result = await add(ctx, Article, { ...articleInfo })
 
     ctx.body = {
         code: result ? 0 : 1,
+        result
     }
 }
 
@@ -33,16 +36,17 @@ export const findPartOfArticle = async (ctx) => {
 
     // 拿到部分文章列表中的部分信息
     const result = list.slice((page - 1) * limit, page * limit).map((item) => {
-        const { _id, username, title, content, date, tags, likes, views, commentIds, collectors } =
+        const { _id, username, classification, tags, abstract, title, date, likes, views, commentIds, collectors } =
             item
 
         return {
             articleId: _id,
             username,
             title,
-            contentPreview: content.slice(0, 20),
-            date,
+            classification,
             tags,
+            abstract,
+            date,
             views,
             likeCount: likes.length,
             commentCount: commentIds.length,
@@ -90,6 +94,16 @@ export const delArticle = async (ctx) => {
     const { articleId } = ctx.request.body
 
     await del(ctx, Article, articleId)
+
+    ctx.body = { code: 0 }
+}
+
+// 删除用户的所有文章
+export const delUserArticle = async (ctx) => {
+    const { userId } = ctx.request.body
+    console.log(userId)
+
+    await delByKey(ctx, Article, { key: 'userId', value: userId })
 
     ctx.body = { code: 0 }
 }
